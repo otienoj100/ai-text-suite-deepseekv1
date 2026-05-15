@@ -1,5 +1,5 @@
 # main.py - DeepSeek Version
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
@@ -15,14 +15,17 @@ app = FastAPI(title="AI Text Suite API - DeepSeek Edition")
 logger = logging.getLogger(__name__)
 
 # CORS - UPDATE with your frontend URL after deployment
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://your-frontend.vercel.app",  # Replace with actual URL
+        "https://ai-text-suite-frontend-dp.vercel.app",  # Replace with actual URL
+        FRONT_URL,
     ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=[""GET", "POST", "OPTIONS""],
     allow_headers=["*"],
 )
 

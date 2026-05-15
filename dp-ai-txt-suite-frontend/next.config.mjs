@@ -11,7 +11,7 @@ async rewrites() {
   return [
     {
       source: '/api/:path*',     // Frontend calls this
-      destination: 'http://localhost:10000/api/:path*',  // Goes to backend
+      destination: 'https://ai-text-suite-deepseekv1.onrender.com',  // Goes to backend
     },
   ];
 } 

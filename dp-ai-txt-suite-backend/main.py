@@ -22,10 +22,10 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "https://ai-text-suite-frontend-dp.vercel.app",  # Replace with actual URL
-        FRONT_URL,
+        FRONTEND_URL,
     ],
     allow_credentials=True,
-    allow_methods=[""GET", "POST", "OPTIONS""],
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -66,12 +66,12 @@ def call_deepseek(messages, temperature=0.7, max_tokens=1000):
         return result["choices"][0]["message"]["content"]
     except requests.exceptions.RequestException as e:
         logger.error(f"DeepSeek API error: {e}")
-        if response.status_code == 401:
-            raise Exception("Invalid API key. Please check your DeepSeek API key.")
-        elif response.status_code == 429:
-            raise Exception("Rate limit exceeded. Please try again later.")
-        else:
-            raise Exception(f"API request failed: {str(e)}")
+        if hasattr(e, 'response') and e.response is not None:
+            if e.response.status_code == 401:
+                raise Exception("Invalid API key. Please check your DeepSeek API key.")
+            elif e.response.status_code == 429:
+                raise Exception("Rate limit exceeded. Please try again later.")
+        raise Exception(f"API request failed: {str(e)}")
 
 # ==================== MODELS ====================
 

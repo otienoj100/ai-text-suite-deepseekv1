@@ -1,0 +1,33 @@
+# render.yaml — Infrastructure as Code
+services:
+  - type: web
+    name: ai-text-suite-api-deepseek
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DEEPSEEK_API_KEY
+        sync: false  # Set manually in dashboard
+      - key: FRONTEND_URL
+        sync: false  # Set after frontend deploys
+    healthCheckPath: /health
+    autoDeploy: true# render.yaml — Infrastructure as Code
+services:
+  - type: web
+    name: ai-text-suite-api-deepseek
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DEEPSEEK_API_KEY
+        sync: false  # Set manually in dashboard
+      - key: FRONTEND_URL
+        sync: false  # Set after frontend deploys
+    healthCheckPath: /health
+    autoDeploy: true

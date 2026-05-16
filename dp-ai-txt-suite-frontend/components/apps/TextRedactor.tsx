@@ -26,7 +26,7 @@ export const TextRedactor: React.FC = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('/api/redact', {
+      const response = await fetch('https://ai-text-suite-deepseekv1.onrender.com/api/redact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
